@@ -1,0 +1,17 @@
+apply plugin: 'kotlin'
+
+sourceCompatibility = "7"
+targetCompatibility = "7"
+
+dependencies {
+    compileOnly "com.android.tools.lint:lint-api:26.3.2"
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    testImplementation "com.android.tools.lint:lint:26.3.2"
+    testImplementation "com.android.tools.lint:lint-tests:26.3.2"
+}
+
+jar {
+    manifest {
+        attributes("Lint-Registry-v2": "com.rl.lintrules.MyIssueRegistry")
+    }
+}
