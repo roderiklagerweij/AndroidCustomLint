@@ -19,8 +19,24 @@ class UserInterfaceInheritanceDetectorTest {
 
     """).indented()
 
-
     // Step 1
+    @Test
+    fun `when the parent of an activity is not the support activity an error is given`() {
+        lint().files(activityStub, kotlin("""
+            package test
+            import android.support.v7.app.AppCompatActivity
+
+            class SomeActivity : BaseActivity()
+
+            class BaseActivity : AppCompatActivity()
+        """).indented())
+            .issues(ISSUE_USER_INTERFACE_INHERITANCE)
+            .run()
+            .expectErrorCount(1)
+    }
+
+
+    // Step 2
     @Test
     fun `when a class is not an activity no error is given`() {
         lint().files(kotlin("""
@@ -33,7 +49,7 @@ class UserInterfaceInheritanceDetectorTest {
                 .expectClean()
     }
 
-    // Step 2
+    // Step 3
     @Test
     fun `when the parent of an activity is the support activity no error is given`() {
         lint().files(activityStub, kotlin("""
@@ -49,21 +65,6 @@ class UserInterfaceInheritanceDetectorTest {
                 .expectClean()
     }
 
-    // Step 3
-    @Test
-    fun `when the parent of an activity is not the support activity an error is given`() {
-        lint().files(activityStub, kotlin("""
-            package test
-            import android.support.v7.app.AppCompatActivity
-
-            class SomeActivity : BaseActivity()
-
-            class BaseActivity : AppCompatActivity()
-        """).indented())
-                .issues(ISSUE_USER_INTERFACE_INHERITANCE)
-                .run()
-                .expectErrorCount(1)
-    }
 
     // Step 4
     @Test

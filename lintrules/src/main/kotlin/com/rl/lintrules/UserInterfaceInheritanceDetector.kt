@@ -7,16 +7,16 @@ import java.util.*
 
 val ISSUE_USER_INTERFACE_INHERITANCE = Issue.create("UserInterfaceInheritance",
         "Bad inheritance",
-    UiInheritanceDetector.MESSAGE,
+    UserInterfaceInheritanceDetector.MESSAGE,
         Category.CORRECTNESS,
         5,
         Severity.ERROR,
         Implementation(
-            UiInheritanceDetector::class.java,
+            UserInterfaceInheritanceDetector::class.java,
                 EnumSet.of(Scope.JAVA_FILE)))
 
 
-class UiInheritanceDetector : Detector(), Detector.UastScanner {
+class UserInterfaceInheritanceDetector : Detector(), Detector.UastScanner {
 
     companion object {
         const val MESSAGE = "Let activities and fragments inherit directly from Android's Activity or Fragment"
