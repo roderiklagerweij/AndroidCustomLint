@@ -19,6 +19,13 @@ class ViewStateDetectorTest {
 
     """).indented()
 
+    private val viewModelStub = kotlin("""
+        package androidx.lifecycle
+
+        class ViewModel
+
+    """).indented()
+
     private val fragmentStub = kotlin("""
         package android.support.v4.app
 
@@ -84,4 +91,26 @@ class ViewStateDetectorTest {
             .run()
             .expectClean()
     }
+
+    @Test
+    fun `when an activity class keeps a viewmodel member we expect no error`() {
+        lint().files(viewModelStub, activityStub, kotlin("""
+            package test
+
+            import android.support.v7.app.AppCompatActivity
+            import androidx.lifecycle.ViewModel
+
+            class SomeActivity : AppCompatActivity() {
+
+                val testViewModel = SomeViewModel()
+            }
+
+            class SomeViewModel : ViewModel()
+        """).indented())
+            .issues(ISSUE_VIEW_STATE)
+            .allowMissingSdk(true)
+            .run()
+            .expectClean()
+    }
+
 }

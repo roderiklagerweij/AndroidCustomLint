@@ -2,6 +2,7 @@ package com.rl.lintrules
 
 import com.android.tools.lint.detector.api.*
 import org.jetbrains.uast.UClass
+import org.jetbrains.uast.UField
 import java.util.*
 
 
@@ -26,13 +27,16 @@ class ViewStateDetector : Detector(), Detector.UastScanner {
             "androidx.appcompat.app.AppCompatActivity",
             "android.support.v4.app.Fragment",
             "androidx.fragment.app")
+
+        private const val VIEWMODEL_CLASS = "androidx.lifecycle.ViewModel"
     }
 
     override fun applicableSuperClasses(): List<String>? = UI_CLASSES
 
     override fun visitClass(context: JavaContext, declaration: UClass) {
         declaration.fields.forEach {
-            if (!it.type.canonicalText.startsWith("android")) {
+            if (isNotAndroidClass(it) &&
+                isNotViewModel(it)) {
                 context.report(
                     ISSUE_VIEW_STATE, it,
                     context.getLocation(it),
@@ -40,4 +44,8 @@ class ViewStateDetector : Detector(), Detector.UastScanner {
             }
         }
     }
+
+    private fun isNotViewModel(it: UField) = it.type.superTypes[0].canonicalText != VIEWMODEL_CLASS
+
+    private fun isNotAndroidClass(it: UField) = !it.type.canonicalText.startsWith("android")
 }
