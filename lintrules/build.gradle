@@ -8,6 +8,7 @@ dependencies {
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     testImplementation "com.android.tools.lint:lint:26.4.0"
     testImplementation "com.android.tools.lint:lint-tests:26.4.0"
+    testImplementation "com.android.tools:testutils:26.4.0"
 }
 
 jar {
