@@ -31,6 +31,7 @@ class UserInterfaceInheritanceDetectorTest {
             class BaseActivity : AppCompatActivity()
         """).indented())
             .issues(ISSUE_USER_INTERFACE_INHERITANCE)
+            .allowMissingSdk(true)
             .run()
             .expectErrorCount(1)
     }
@@ -44,9 +45,10 @@ class UserInterfaceInheritanceDetectorTest {
 
             class SomeClass
         """).indented())
-                .issues(ISSUE_USER_INTERFACE_INHERITANCE)
-                .run()
-                .expectClean()
+            .issues(ISSUE_USER_INTERFACE_INHERITANCE)
+            .allowMissingSdk(true)
+            .run()
+            .expectClean()
     }
 
     // Step 3
@@ -60,9 +62,10 @@ class UserInterfaceInheritanceDetectorTest {
 
             }
         """).indented())
-                .issues(ISSUE_USER_INTERFACE_INHERITANCE)
-                .run()
-                .expectClean()
+            .issues(ISSUE_USER_INTERFACE_INHERITANCE)
+            .allowMissingSdk(true)
+            .run()
+            .expectClean()
     }
 
 
@@ -77,8 +80,9 @@ class UserInterfaceInheritanceDetectorTest {
 
             class BaseFragment : Fragment()
         """).indented())
-                .issues(ISSUE_USER_INTERFACE_INHERITANCE)
-                .run()
-                .expectErrorCount(1)
+            .issues(ISSUE_USER_INTERFACE_INHERITANCE)
+            .allowMissingSdk(true)
+            .run()
+            .expectErrorCount(1)
     }
 }

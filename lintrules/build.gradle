@@ -4,10 +4,10 @@ sourceCompatibility = "7"
 targetCompatibility = "7"
 
 dependencies {
-    compileOnly "com.android.tools.lint:lint-api:26.3.2"
+    compileOnly "com.android.tools.lint:lint-api:26.4.0"
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    testImplementation "com.android.tools.lint:lint:26.3.2"
-    testImplementation "com.android.tools.lint:lint-tests:26.3.2"
+    testImplementation "com.android.tools.lint:lint:26.4.0"
+    testImplementation "com.android.tools.lint:lint-tests:26.4.0"
 }
 
 jar {
