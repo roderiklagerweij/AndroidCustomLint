@@ -35,7 +35,7 @@ class ViewStateDetectorTest {
 
     // Step 1
     @Test
-    fun `when an activity keeps a boolean an error given`() {
+    fun `when an activity keeps a boolean an error is given`() {
         lint().files(activityStub, kotlin("""
             package test
 
@@ -56,7 +56,7 @@ class ViewStateDetectorTest {
 
     // Step 2
     @Test
-    fun `when any non-ui class keeps a boolean we expect no error`() {
+    fun `when a non-ui class keeps a boolean we expect no error`() {
         lint().files(kotlin("""
             package test
 
@@ -113,4 +113,23 @@ class ViewStateDetectorTest {
             .expectClean()
     }
 
+    @Test
+    fun `when an activity class keeps an adapter we expect no error`() {
+        lint().files(activityStub, kotlin("""
+            package test
+
+            import android.support.v7.app.AppCompatActivity
+
+            class SomeActivity : AppCompatActivity() {
+
+                val testAdapter = SomeAdapter()
+            }
+
+            class SomeAdapter
+        """).indented())
+            .issues(ISSUE_VIEW_STATE)
+            .allowMissingSdk(true)
+            .run()
+            .expectClean()
+    }
 }

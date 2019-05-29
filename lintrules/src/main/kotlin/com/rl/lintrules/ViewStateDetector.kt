@@ -8,7 +8,7 @@ import java.util.*
 
 val ISSUE_VIEW_STATE = Issue.create(
     id = "ViewState",
-    briefDescription = "bla",
+    briefDescription = ViewStateDetector.MESSAGE,
     explanation = ViewStateDetector.MESSAGE,
     category = Category.CORRECTNESS,
     priority = 5,
@@ -21,7 +21,7 @@ val ISSUE_VIEW_STATE = Issue.create(
 class ViewStateDetector : Detector(), Detector.UastScanner {
 
     companion object {
-        const val MESSAGE = "asd"
+        const val MESSAGE = "Please keep state out of UI classes"
         private val UI_CLASSES =  listOf(
             "android.support.v7.app.AppCompatActivity",
             "androidx.appcompat.app.AppCompatActivity",
@@ -35,8 +35,9 @@ class ViewStateDetector : Detector(), Detector.UastScanner {
 
     override fun visitClass(context: JavaContext, declaration: UClass) {
         declaration.fields.forEach {
-            if (isNotAndroidClass(it) &&
-                isNotViewModel(it)) {
+            if (!isAndroidClass(it) &&
+                !isViewModel(it) &&
+                !isAdapter(it)) {
                 context.report(
                     ISSUE_VIEW_STATE, it,
                     context.getLocation(it),
@@ -45,7 +46,10 @@ class ViewStateDetector : Detector(), Detector.UastScanner {
         }
     }
 
-    private fun isNotViewModel(it: UField) = it.type.superTypes[0].canonicalText != VIEWMODEL_CLASS
+    private fun isViewModel(it: UField) =
+        it.type.superTypes.isNotEmpty() && it.type.superTypes[0].canonicalText == VIEWMODEL_CLASS
 
-    private fun isNotAndroidClass(it: UField) = !it.type.canonicalText.startsWith("android")
+    private fun isAndroidClass(it: UField) = it.type.canonicalText.startsWith("android")
+
+    private fun isAdapter(it: UField) = it.type.canonicalText.toLowerCase().contains("adapter")
 }
