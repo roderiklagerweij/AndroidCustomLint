@@ -1,5 +1,6 @@
 package com.rl.lintrules
 
+import com.android.tools.lint.checks.infrastructure.LintDetectorTest.java
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest.kotlin
 import com.android.tools.lint.checks.infrastructure.TestLintTask.lint
 import org.junit.Test
@@ -43,7 +44,7 @@ class ViewStateDetectorTest {
 
             class SomeActivity : AppCompatActivity() {
 
-                val testBoolean = false
+                var testBoolean = false
 
             }
         """).indented())
@@ -132,4 +133,65 @@ class ViewStateDetectorTest {
             .run()
             .expectClean()
     }
+
+    @Test
+    fun `when an activity class keeps a static member we expect no error`() {
+        lint().files(activityStub, java("""
+            package test;
+
+            import android.support.v7.app.AppCompatActivity;
+
+            class SomeActivity extends AppCompatActivity {
+
+                private static String TEST = "123";
+            }
+        """).indented())
+            .issues(ISSUE_VIEW_STATE)
+            .allowMissingSdk(true)
+            .run()
+            .expectClean()
+    }
+
+    @Test
+    fun `when an activity class keeps a companion object we expect no error`() {
+        lint().files(activityStub, kotlin("""
+            package test
+
+            import android.support.v7.app.AppCompatActivity
+
+            class SomeActivity : AppCompatActivity() {
+                companion object {
+                    const val TEST = "Test"
+
+                }
+
+            }
+
+        """).indented())
+            .issues(ISSUE_VIEW_STATE)
+            .allowMissingSdk(true)
+            .run()
+            .expectClean()
+    }
+
+    @Test
+    fun `when an activity class keeps a final member we expect no error`() {
+        lint().files(activityStub, java("""
+            package test;
+
+            import android.support.v7.app.AppCompatActivity;
+
+            class SomeActivity extends AppCompatActivity {
+
+                private final String test = "123";
+            }
+        """).indented())
+            .issues(ISSUE_VIEW_STATE)
+            .allowMissingSdk(true)
+            .run()
+            .expectClean()
+    }
+
+
+
 }

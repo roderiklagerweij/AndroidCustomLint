@@ -26,7 +26,7 @@ class ViewStateDetector : Detector(), Detector.UastScanner {
             "android.support.v7.app.AppCompatActivity",
             "androidx.appcompat.app.AppCompatActivity",
             "android.support.v4.app.Fragment",
-            "androidx.fragment.app")
+            "androidx.fragment.app.Fragment")
 
         private const val VIEWMODEL_CLASS = "androidx.lifecycle.ViewModel"
     }
@@ -35,9 +35,12 @@ class ViewStateDetector : Detector(), Detector.UastScanner {
 
     override fun visitClass(context: JavaContext, declaration: UClass) {
         declaration.fields.forEach {
-            if (!isAndroidClass(it) &&
+            if (!it.isStatic &&
+                !it.isFinal &&
+                !isAndroidClass(it) &&
                 !isViewModel(it) &&
-                !isAdapter(it)) {
+                !isAdapter(it) &&
+                !looksLikeCustomView(it)) {
                 context.report(
                     ISSUE_VIEW_STATE, it,
                     context.getLocation(it),
@@ -52,4 +55,9 @@ class ViewStateDetector : Detector(), Detector.UastScanner {
     private fun isAndroidClass(it: UField) = it.type.canonicalText.startsWith("android")
 
     private fun isAdapter(it: UField) = it.type.canonicalText.toLowerCase().contains("adapter")
+
+    private fun looksLikeCustomView(it: UField) =
+        if (it.type.canonicalText.toLowerCase().contains("button")) {
+            true
+        } else it.type.canonicalText.toLowerCase().contains("view")
 }
