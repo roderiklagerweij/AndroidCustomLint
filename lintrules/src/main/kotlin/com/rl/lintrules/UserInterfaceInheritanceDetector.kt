@@ -24,7 +24,7 @@ class UserInterfaceInheritanceDetector : Detector(), Detector.UastScanner {
             "android.support.v7.app.AppCompatActivity",
             "androidx.appcompat.app.AppCompatActivity",
             "android.support.v4.app.Fragment",
-            "androidx.fragment.app")
+            "androidx.fragment.app.Fragment")
     }
 
     override fun getApplicableUastTypes(): List<Class<out UElement>>? = listOf(UClass::class.java)
