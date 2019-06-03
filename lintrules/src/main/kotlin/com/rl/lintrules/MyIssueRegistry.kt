@@ -9,7 +9,8 @@ class MyIssueRegistry : IssueRegistry() {
         get() = listOf(
             ISSUE_USER_INTERFACE_INHERITANCE,
             ISSUE_VIEW_STATE,
-            ISSUE_ROBOT_DETECTOR
+            ISSUE_MISSING_ROBOT_DETECTOR,
+            ISSUE_MISSING_VIEWMODEL_DETECTOR
         )
 
     override val api: Int = CURRENT_API

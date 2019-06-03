@@ -5,22 +5,22 @@ import org.jetbrains.uast.UClass
 import java.util.*
 
 
-val ISSUE_ROBOT_DETECTOR = Issue.create(
-    id = "Robot",
-    briefDescription = RobotDetector.MESSAGE,
-    explanation = RobotDetector.MESSAGE,
+val ISSUE_MISSING_VIEWMODEL_DETECTOR = Issue.create(
+    id = "MissingViewModel",
+    briefDescription = MissingViewModelDetector.MESSAGE,
+    explanation = MissingViewModelDetector.MESSAGE,
     category = Category.CORRECTNESS,
     priority = 5,
     severity = Severity.ERROR,
     implementation = Implementation(
-        RobotDetector::class.java,
+        MissingViewModelDetector::class.java,
         EnumSet.of(Scope.JAVA_FILE)))
 
 
-class RobotDetector : Detector(), Detector.UastScanner {
+class MissingViewModelDetector : Detector(), Detector.UastScanner {
 
     companion object {
-        const val MESSAGE = "Robot is missing for this fragment (or has incorrect name or is in wrong package), please create one"
+        const val MESSAGE = "ViewModel is missing for this fragment (or has incorrect name or is in wrong package), please create one"
         private val UI_CLASSES =  listOf(
             "android.support.v4.app.Fragment",
             "androidx.fragment.app.Fragment")
@@ -35,14 +35,13 @@ class RobotDetector : Detector(), Detector.UastScanner {
         declaration.qualifiedName?.let { qualifiedName ->
             declaration.name?.let { name ->
                 val packageName = qualifiedName.dropLast(name.length + 1)
-                val robotName = name.dropLast("Fragment".length) + "Robot"
-                if (context.evaluator.findClass("${packageName}.${robotName}") == null) {
+                val viewModelName = name.dropLast("Fragment".length) + "ViewModel"
+                if (context.evaluator.findClass("${packageName}.${viewModelName}") == null) {
                     context.report(
-                        ISSUE_ROBOT_DETECTOR, declaration,
+                        ISSUE_MISSING_VIEWMODEL_DETECTOR, declaration,
                         context.getNameLocation(declaration),
-                        RobotDetector.MESSAGE
+                        MissingViewModelDetector.MESSAGE
                     )
-
                 }
             }
         }

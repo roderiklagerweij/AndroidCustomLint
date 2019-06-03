@@ -4,7 +4,7 @@ import com.android.tools.lint.checks.infrastructure.LintDetectorTest.kotlin
 import com.android.tools.lint.checks.infrastructure.TestLintTask.lint
 import org.junit.Test
 
-class RobotDetectorTest {
+class MissingRobotDetectorTest {
     private val fragmentStub = kotlin("""
         package android.support.v4.app
 
@@ -23,7 +23,7 @@ class RobotDetectorTest {
 
             }
         """).indented())
-            .issues(ISSUE_ROBOT_DETECTOR)
+            .issues(ISSUE_MISSING_ROBOT_DETECTOR)
             .allowMissingSdk(true)
             .run()
             .expectErrorCount(1)
@@ -44,7 +44,7 @@ class RobotDetectorTest {
 
             }
         """).indented())
-            .issues(ISSUE_ROBOT_DETECTOR)
+            .issues(ISSUE_MISSING_ROBOT_DETECTOR)
             .allowMissingSdk(true)
             .run()
             .expectClean()
