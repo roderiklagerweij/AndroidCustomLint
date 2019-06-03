@@ -8,7 +8,8 @@ class MyIssueRegistry : IssueRegistry() {
     override val issues: List<Issue>
         get() = listOf(
             ISSUE_USER_INTERFACE_INHERITANCE,
-            ISSUE_VIEW_STATE
+            ISSUE_VIEW_STATE,
+            ISSUE_ROBOT_DETECTOR
         )
 
     override val api: Int = CURRENT_API
