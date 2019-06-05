@@ -4,20 +4,19 @@ import com.android.tools.lint.detector.api.*
 import org.jetbrains.uast.UClass
 import java.util.*
 
-
 val ISSUE_MISSING_ROBOT_DETECTOR = Issue.create(
     id = "MissingRobot",
-    briefDescription = RobotDetector.MESSAGE,
-    explanation = RobotDetector.MESSAGE,
+    briefDescription = MissingRobotDetector.MESSAGE,
+    explanation = MissingRobotDetector.MESSAGE,
     category = Category.CORRECTNESS,
     priority = 5,
     severity = Severity.ERROR,
     implementation = Implementation(
-        RobotDetector::class.java,
+        MissingRobotDetector::class.java,
         EnumSet.of(Scope.JAVA_FILE)))
 
 
-class RobotDetector : Detector(), Detector.UastScanner {
+class MissingRobotDetector : Detector(), Detector.UastScanner {
 
     companion object {
         const val MESSAGE = "Robot is missing for this fragment (or has incorrect name or is in wrong package), please create one"
@@ -30,6 +29,7 @@ class RobotDetector : Detector(), Detector.UastScanner {
 
     override fun visitClass(context: JavaContext, declaration: UClass) {
 
+        // Ignore in case we're scanning one of the UI classes
         if (context.evaluator.getQualifiedName(declaration) in UI_CLASSES) return
 
         declaration.qualifiedName?.let { qualifiedName ->
@@ -40,7 +40,7 @@ class RobotDetector : Detector(), Detector.UastScanner {
                     context.report(
                         ISSUE_MISSING_ROBOT_DETECTOR, declaration,
                         context.getNameLocation(declaration),
-                        RobotDetector.MESSAGE
+                        MissingRobotDetector.MESSAGE
                     )
                 }
             }
