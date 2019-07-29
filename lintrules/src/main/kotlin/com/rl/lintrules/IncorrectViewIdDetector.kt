@@ -6,8 +6,8 @@ import org.w3c.dom.Element
 
 val ISSUE_INCORRECT_VIEW_ID_DETECTOR = Issue.create(
     id = "IncorrectViewId",
-    briefDescription = MissingRobotDetector.MESSAGE,
-    explanation = MissingRobotDetector.MESSAGE,
+    briefDescription = IncorrectViewIdDetector.MESSAGE,
+    explanation = IncorrectViewIdDetector.MESSAGE,
     category = Category.CORRECTNESS,
     priority = 5,
     severity = Severity.ERROR,
@@ -15,8 +15,11 @@ val ISSUE_INCORRECT_VIEW_ID_DETECTOR = Issue.create(
         IncorrectViewIdDetector::class.java,
         Scope.RESOURCE_FILE_SCOPE))
 
-
 class IncorrectViewIdDetector : ResourceXmlDetector() {
+
+    companion object {
+        const val MESSAGE = "Lint detector for properly naming view id's"
+    }
 
     override fun appliesTo(folderType: ResourceFolderType) = true
 
