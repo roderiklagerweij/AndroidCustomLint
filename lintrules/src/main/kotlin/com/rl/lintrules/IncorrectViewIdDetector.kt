@@ -29,22 +29,5 @@ class IncorrectViewIdDetector : ResourceXmlDetector() {
                 context.report(ISSUE_INCORRECT_VIEW_ID_DETECTOR, element.attributes.getNamedItem("android:id"), context.getElementLocation(element), "View id should start with same name as filename for clarity")
             }
         }
-
-//        element.children()
-//            .forEach { child ->
-//                val isStringResource = child.isTextNode() && SdkConstants.TAG_STRING == element.localName
-//                val isStringArrayOrPlurals = child.isElementNode() && (SdkConstants.TAG_STRING_ARRAY == element.localName || SdkConstants.TAG_PLURALS == element.localName)
-//
-//                if (isStringResource) {
-//                    checkText(context, element, child.nodeValue)
-//                } else if (isStringArrayOrPlurals) {
-//                    child.children()
-//                        .filter { it.isTextNode() }
-//                        .forEach { checkText(context, child, it.nodeValue) }
-//                }
-//            }
     }
-
-
-
 }
