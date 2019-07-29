@@ -37,4 +37,20 @@ class IncorrectViewIdDetectorTest {
             .run()
             .expectErrorCount(1)
     }
+
+    @Test
+    fun `if element has no id then expect clean`() {
+        lint().files(
+            TestFiles.xml(
+                "res/layout/fragment_file.xml", """
+          <TextView
+                />
+              """
+            ).indented())
+            .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
+            .allowMissingSdk(true)
+            .run()
+            .expectClean()
+    }
+
 }

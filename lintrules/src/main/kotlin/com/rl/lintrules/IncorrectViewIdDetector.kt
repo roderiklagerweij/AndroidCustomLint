@@ -24,9 +24,12 @@ class IncorrectViewIdDetector : ResourceXmlDetector() {
 
     override fun visitElement(context: XmlContext, element: Element) {
         val fileName = context.file.name.split(".")[0]
-        if (!element.attributes.getNamedItem("android:id").nodeValue.split("/")[1].startsWith(fileName)) {
-            context.report(ISSUE_INCORRECT_VIEW_ID_DETECTOR, element.attributes.getNamedItem("android:id"), context.getElementLocation(element), "View id should start with same name as filename for clarity")
+        element.attributes.getNamedItem("android:id")?.let { viewId ->
+            if (!viewId.nodeValue.split("/")[1].startsWith(fileName)) {
+                context.report(ISSUE_INCORRECT_VIEW_ID_DETECTOR, element.attributes.getNamedItem("android:id"), context.getElementLocation(element), "View id should start with same name as filename for clarity")
+            }
         }
+
 //        element.children()
 //            .forEach { child ->
 //                val isStringResource = child.isTextNode() && SdkConstants.TAG_STRING == element.localName
