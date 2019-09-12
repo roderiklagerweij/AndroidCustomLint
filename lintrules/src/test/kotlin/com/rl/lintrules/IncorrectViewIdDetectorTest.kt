@@ -7,12 +7,44 @@ import org.junit.Test
 class IncorrectViewIdDetectorTest {
 
     @Test
-    fun `if view id starts with the name of the layout file then expect clean`() {
+    fun `if view id only has one part then an error is expected`() {
+        lint().files(
+            TestFiles.xml(
+                "res/layout/fragment_file.xml", """
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android">
+                <TextView android:id="@+id/firstPart" />
+            </LinearLayout>
+              """
+            ).indented())
+            .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
+            .allowMissingSdk(true)
+            .run()
+            .expectErrorCount(1)
+    }
+
+    @Test
+    fun `if view id only has two parts then an error is expected`() {
         lint().files(
             TestFiles.xml(
                 "res/layout/fragment_file.xml", """
           <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/fragment_file_someid"
+                android:id="@+id/firstPart_secondPart"
+                />
+              """
+            ).indented())
+            .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
+            .allowMissingSdk(true)
+            .run()
+            .expectErrorCount(1)
+    }
+
+    @Test
+    fun `if view id has three parts then clean is expected`() {
+        lint().files(
+            TestFiles.xml(
+                "res/layout/fragment_file.xml", """
+          <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/firstPart_secondPart_thirdPart"
                 />
               """
             ).indented())
@@ -23,12 +55,44 @@ class IncorrectViewIdDetectorTest {
     }
 
     @Test
-    fun `if view id doesn't start with the name of the layout file then expect error`() {
+    fun `if view id contains non-camel case first part then error is expected`() {
         lint().files(
             TestFiles.xml(
                 "res/layout/fragment_file.xml", """
           <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/test"
+                android:id="@+id/Firstpart_secondPart_thirdPart"
+                />
+              """
+            ).indented())
+            .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
+            .allowMissingSdk(true)
+            .run()
+            .expectErrorCount(1)
+    }
+
+    @Test
+    fun `if view id contains non-camel case second part then error is expected`() {
+        lint().files(
+            TestFiles.xml(
+                "res/layout/fragment_file.xml", """
+          <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/firstPart_Secondpart_thirdPart"
+                />
+              """
+            ).indented())
+            .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
+            .allowMissingSdk(true)
+            .run()
+            .expectErrorCount(1)
+    }
+
+    @Test
+    fun `if view id contains non-camel case third part then error is expected`() {
+        lint().files(
+            TestFiles.xml(
+                "res/layout/fragment_file.xml", """
+          <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/firstPart_secondPart_Thirdpart"
                 />
               """
             ).indented())
@@ -52,5 +116,4 @@ class IncorrectViewIdDetectorTest {
             .run()
             .expectClean()
     }
-
 }
