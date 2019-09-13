@@ -19,7 +19,7 @@ class IncorrectViewIdDetectorTest {
             .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
             .allowMissingSdk(true)
             .run()
-            .expectErrorCount(1)
+            .expectWarningCount(1)
     }
 
     @Test
@@ -35,7 +35,7 @@ class IncorrectViewIdDetectorTest {
             .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
             .allowMissingSdk(true)
             .run()
-            .expectErrorCount(1)
+            .expectWarningCount(1)
     }
 
     @Test
@@ -67,7 +67,7 @@ class IncorrectViewIdDetectorTest {
             .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
             .allowMissingSdk(true)
             .run()
-            .expectErrorCount(1)
+            .expectWarningCount(1)
     }
 
     @Test
@@ -83,7 +83,7 @@ class IncorrectViewIdDetectorTest {
             .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
             .allowMissingSdk(true)
             .run()
-            .expectErrorCount(1)
+            .expectWarningCount(1)
     }
 
     @Test
@@ -99,7 +99,7 @@ class IncorrectViewIdDetectorTest {
             .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
             .allowMissingSdk(true)
             .run()
-            .expectErrorCount(1)
+            .expectWarningCount(1)
     }
 
     @Test
