@@ -37,6 +37,34 @@ class IvalidImportDetectorTest {
     }
 
     @Test
+    fun `when a test class does not import from an espresso package then expect clean`() {
+        TestLintTask.lint().files(LintDetectorTest.kotlin(
+            "src/test/kotlin/somepackage/SomeFragmentTest.kt",
+            """
+            package somepackage
+
+            class SomeFragmentTest {
+
+            }
+        """
+        ).indented(),
+            gradle(
+                """
+                android {
+                    lintOptions {
+                        checkTestSources true
+                    }
+                }
+                """
+            ).indented())
+            .issues(ISSUE_IMPORT_DETECTOR)
+            .allowMissingSdk(true)
+            .run()
+            .expectClean()
+    }
+
+
+    @Test
     fun `when a journey class imports from an espresso package then expect a warning`() {
         TestLintTask.lint().files(LintDetectorTest.kotlin(
             "src/test/kotlin/somepackage/SomeJourney.kt",
