@@ -30,18 +30,18 @@ class ImportDetector : Detector(), Detector.UastScanner {
     override fun createUastHandler(context: JavaContext): UElementHandler? {
         return object : UElementHandler() {
             override fun visitImportStatement(node: UImportStatement) {
+
                 node.importReference?.let { import ->
-                    if (!rules.all { it.isAllowedImport(context.file.nameWithoutExtension, context.isTestSource, import.asRenderString()) }) {
-                        context.report(
-                            ISSUE_IMPORT_DETECTOR, node,
-                            context.getLocation(import),
-                            MESSAGE
-                        )
+                    rules.forEach {
+                        if (!it.isAllowedImport(context.file.nameWithoutExtension, context.isTestSource, import.asRenderString())) {
+                            context.report(
+                                ISSUE_IMPORT_DETECTOR, node,
+                                context.getLocation(import),
+                                it.getMessage())
+                        }
                     }
                 }
             }
         }
     }
-
-
 }
