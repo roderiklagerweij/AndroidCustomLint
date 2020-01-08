@@ -13,7 +13,5 @@ class InvalidEspressoImportRule : InvalidImportRule {
         return true
     }
 
-    override fun getMessage(): String {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getMessage() = "Please don't use any Espresso code in your test classes"
 }
