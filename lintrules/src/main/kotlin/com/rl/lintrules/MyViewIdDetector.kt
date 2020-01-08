@@ -3,20 +3,21 @@ package com.rl.lintrules
 import com.android.SdkConstants
 import com.android.resources.ResourceFolderType
 import com.android.tools.lint.detector.api.*
+import com.rl.lintrules.viewid.example.AllCapsViewIdRule
 import org.w3c.dom.Attr
 
-val ISSUE_INCORRECT_VIEW_ID_DETECTOR = Issue.create(
+val ISSUE_MYINCORRECT_VIEW_ID_DETECTOR = Issue.create(
     id = "IncorrectViewId",
-    briefDescription = IncorrectViewIdDetector.MESSAGE,
-    explanation = IncorrectViewIdDetector.MESSAGE,
+    briefDescription = MyIncorrectViewIdDetector .MESSAGE,
+    explanation = MyIncorrectViewIdDetector .MESSAGE,
     category = Category.CORRECTNESS,
     priority = 5,
     severity = Severity.WARNING,
     implementation = Implementation(
-        IncorrectViewIdDetector::class.java,
+        MyIncorrectViewIdDetector ::class.java,
         Scope.RESOURCE_FILE_SCOPE))
 
-class IncorrectViewIdDetector : LayoutDetector() {
+class MyIncorrectViewIdDetector : LayoutDetector() {
 
     companion object {
         const val MESSAGE = "Lint detector for properly naming view id's"
@@ -29,10 +30,11 @@ class IncorrectViewIdDetector : LayoutDetector() {
         folderType == ResourceFolderType.LAYOUT
 
     override fun visitAttribute(context: XmlContext, attribute: Attr) {
-        if (attribute.name != null && attribute.name.equals("android:id")) {
+        if (attribute.name != null && attribute.name == "android:id") {
+            
             if (!isValidId(attribute.value)) {
                 context.report(
-                    ISSUE_INCORRECT_VIEW_ID_DETECTOR,
+                    ISSUE_MYINCORRECT_VIEW_ID_DETECTOR,
                     attribute,
                     context.getLocation(attribute),
                     "This view does not have a valid view id. Valid view id is part1_part2_part3 where all parts are in camelcase"

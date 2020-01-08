@@ -4,7 +4,7 @@ import com.android.tools.lint.checks.infrastructure.TestFiles
 import com.android.tools.lint.checks.infrastructure.TestLintTask.lint
 import org.junit.Test
 
-class IncorrectViewIdDetectorTest {
+class MyViewIdDetectorTest {
 
     @Test
     fun `if view id only has one part then an error is expected`() {
@@ -16,7 +16,7 @@ class IncorrectViewIdDetectorTest {
             </LinearLayout>
               """
             ).indented())
-            .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
+            .issues(ISSUE_MYINCORRECT_VIEW_ID_DETECTOR)
             .allowMissingSdk(true)
             .run()
             .expectWarningCount(1)
@@ -32,7 +32,7 @@ class IncorrectViewIdDetectorTest {
                 />
               """
             ).indented())
-            .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
+            .issues(ISSUE_MYINCORRECT_VIEW_ID_DETECTOR)
             .allowMissingSdk(true)
             .run()
             .expectWarningCount(1)
@@ -48,7 +48,7 @@ class IncorrectViewIdDetectorTest {
                 />
               """
             ).indented())
-            .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
+            .issues(ISSUE_MYINCORRECT_VIEW_ID_DETECTOR)
             .allowMissingSdk(true)
             .run()
             .expectClean()
@@ -64,7 +64,7 @@ class IncorrectViewIdDetectorTest {
                 />
               """
             ).indented())
-            .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
+            .issues(ISSUE_MYINCORRECT_VIEW_ID_DETECTOR)
             .allowMissingSdk(true)
             .run()
             .expectWarningCount(1)
@@ -80,7 +80,7 @@ class IncorrectViewIdDetectorTest {
                 />
               """
             ).indented())
-            .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
+            .issues(ISSUE_MYINCORRECT_VIEW_ID_DETECTOR)
             .allowMissingSdk(true)
             .run()
             .expectWarningCount(1)
@@ -96,7 +96,7 @@ class IncorrectViewIdDetectorTest {
                 />
               """
             ).indented())
-            .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
+            .issues(ISSUE_MYINCORRECT_VIEW_ID_DETECTOR)
             .allowMissingSdk(true)
             .run()
             .expectWarningCount(1)
@@ -111,7 +111,7 @@ class IncorrectViewIdDetectorTest {
                 />
               """
             ).indented())
-            .issues(ISSUE_INCORRECT_VIEW_ID_DETECTOR)
+            .issues(ISSUE_MYINCORRECT_VIEW_ID_DETECTOR)
             .allowMissingSdk(true)
             .run()
             .expectClean()
