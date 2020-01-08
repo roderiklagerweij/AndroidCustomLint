@@ -1,6 +1,9 @@
-package com.rl.lintrules.importrules
+package com.rl.lintrules.importrules.examples
 
-class InvalidEspressoImportRule : InvalidImportRule {
+import com.rl.lintrules.importrules.InvalidImportRule
+
+class InvalidEspressoImportRule :
+    InvalidImportRule {
 
     override fun isAllowedImport(className: String, isTestSource : Boolean, importedClass: String): Boolean {
         if (isTestSource) {

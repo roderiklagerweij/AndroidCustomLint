@@ -2,7 +2,7 @@ package com.rl.lintrules
 
 import com.android.tools.lint.client.api.UElementHandler
 import com.android.tools.lint.detector.api.*
-import com.rl.lintrules.importrules.InvalidEspressoImportRule
+import com.rl.lintrules.importrules.examples.InvalidEspressoImportRule
 import org.jetbrains.uast.UImportStatement
 import java.util.*
 
