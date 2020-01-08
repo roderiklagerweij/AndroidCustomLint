@@ -1,4 +1,4 @@
-package com.rl.lintrules.importrules.examples
+package com.rl.lintrules.importrules.example
 
 import com.rl.lintrules.importrules.InvalidImportRule
 

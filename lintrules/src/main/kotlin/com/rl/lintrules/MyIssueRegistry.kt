@@ -3,6 +3,7 @@ package com.rl.lintrules
 import com.android.tools.lint.client.api.IssueRegistry
 import com.android.tools.lint.detector.api.CURRENT_API
 import com.android.tools.lint.detector.api.Issue
+import com.rl.lintrules.classexistence.ISSUE_CLASS_EXISTENCE
 import com.rl.lintrules.importrules.ISSUE_IMPORT_DETECTOR
 
 class MyIssueRegistry : IssueRegistry() {
@@ -13,7 +14,8 @@ class MyIssueRegistry : IssueRegistry() {
 //            ISSUE_MISSING_ROBOT_DETECTOR,
 //            ISSUE_MISSING_VIEWMODEL_DETECTOR,
             ISSUE_INCORRECT_VIEW_ID_DETECTOR,
-            ISSUE_IMPORT_DETECTOR
+            ISSUE_IMPORT_DETECTOR,
+            ISSUE_CLASS_EXISTENCE
         )
 
     override val api: Int = CURRENT_API
