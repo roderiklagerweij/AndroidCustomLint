@@ -15,7 +15,9 @@ val ISSUE_IMPORT_DETECTOR = Issue.create(
     severity = Severity.WARNING,
     implementation = Implementation(
         ImportDetector::class.java,
-        EnumSet.of(Scope.JAVA_FILE)))
+        EnumSet.of(Scope.TEST_SOURCES, Scope.JAVA_FILE),
+        EnumSet.of(Scope.TEST_SOURCES, Scope.JAVA_FILE))
+    )
 
 class ImportDetector : Detector(), Detector.UastScanner {
 
@@ -30,7 +32,6 @@ class ImportDetector : Detector(), Detector.UastScanner {
     override fun createUastHandler(context: JavaContext): UElementHandler? {
         return object : UElementHandler() {
             override fun visitImportStatement(node: UImportStatement) {
-
                 node.importReference?.let { import ->
                     rules.forEach {
                         if (!it.isAllowedImport(context.file.nameWithoutExtension, context.isTestSource, import.asRenderString())) {
