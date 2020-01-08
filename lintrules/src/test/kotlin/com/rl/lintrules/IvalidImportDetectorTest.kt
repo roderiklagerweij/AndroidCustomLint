@@ -3,6 +3,7 @@ package com.rl.lintrules
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest.gradle
 import com.android.tools.lint.checks.infrastructure.TestLintTask
+import com.rl.lintrules.importrules.ISSUE_IMPORT_DETECTOR
 import org.junit.Test
 
 class IvalidImportDetectorTest {

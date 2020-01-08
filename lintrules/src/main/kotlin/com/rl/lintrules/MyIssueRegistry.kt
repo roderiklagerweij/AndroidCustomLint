@@ -3,6 +3,7 @@ package com.rl.lintrules
 import com.android.tools.lint.client.api.IssueRegistry
 import com.android.tools.lint.detector.api.CURRENT_API
 import com.android.tools.lint.detector.api.Issue
+import com.rl.lintrules.importrules.ISSUE_IMPORT_DETECTOR
 
 class MyIssueRegistry : IssueRegistry() {
     override val issues: List<Issue>

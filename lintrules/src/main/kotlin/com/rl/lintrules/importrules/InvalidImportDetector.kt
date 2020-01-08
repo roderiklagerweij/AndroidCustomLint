@@ -1,4 +1,4 @@
-package com.rl.lintrules
+package com.rl.lintrules.importrules
 
 import com.android.tools.lint.client.api.UElementHandler
 import com.android.tools.lint.detector.api.*
