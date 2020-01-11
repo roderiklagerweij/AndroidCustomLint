@@ -3,11 +3,11 @@ package com.rl.lintrules.stats.examples
 import com.rl.lintrules.stats.ClassStats
 import com.rl.lintrules.stats.ClassStatsRule
 
-class NonFinalRule : ClassStatsRule {
+class NullableRule : ClassStatsRule {
     override fun isValid(classStats: ClassStats) =
-        classStats.numberOfVars < 4
+        classStats.numberOfNullableDeclarations < 4
 
 
-    override fun getMessage() = "Please don't use non-final declarations!"
+    override fun getMessage() = "Please don't use nullables!"
 
 }

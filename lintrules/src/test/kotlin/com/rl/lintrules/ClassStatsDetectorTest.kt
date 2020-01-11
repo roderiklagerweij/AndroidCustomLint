@@ -98,4 +98,44 @@ class ClassStatsDetectorTest {
             .expectErrorCount(1)
     }
 
+    @Test
+    fun `when too many nullables are used expect error`() {
+        lint().files(kotlin("""
+            package test
+
+            class SomeClass {
+                fun method1() {
+                    val test1 : String? = null
+                    val test2 : String?
+                    val test3 : String? = null
+                    val test4 : String?
+                    val test5 : String? = null
+                    val test6 : String = "Test"
+                }
+            }
+        """).indented())
+            .issues(ISSUE_CLASS_STATS)
+            .allowMissingSdk(true)
+            .run()
+            .expectErrorCount(1)
+    }
+
+    @Test
+    fun `when too many nullables in dataclass are used expect error`() {
+        lint().files(kotlin("""
+            package test
+
+            data class TestDataClass(
+                var test1 : String?,
+                var test2 : String?,
+                var test3 : String?)
+        """).indented())
+            .issues(ISSUE_CLASS_STATS)
+            .allowMissingSdk(true)
+            .run()
+            .expectClean()
+    }
+
+
+
 }

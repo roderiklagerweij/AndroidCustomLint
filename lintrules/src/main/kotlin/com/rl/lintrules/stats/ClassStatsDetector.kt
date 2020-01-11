@@ -3,10 +3,16 @@ package com.rl.lintrules.stats
 import com.android.tools.lint.client.api.UElementHandler
 import com.android.tools.lint.detector.api.*
 import com.rl.lintrules.stats.examples.DoubleBangRule
-import com.rl.lintrules.stats.examples.TooManyLinesRule
 import com.rl.lintrules.stats.examples.NonFinalRule
+import com.rl.lintrules.stats.examples.NullableRule
+import com.rl.lintrules.stats.examples.TooManyLinesRule
+import org.jetbrains.kotlin.psi.KtNullableType
+import org.jetbrains.kotlin.psi.KtProperty
+import org.jetbrains.kotlin.psi.KtTypeReference
+import org.jetbrains.uast.UBinaryExpression
 import org.jetbrains.uast.UClass
 import org.jetbrains.uast.UDeclaration
+import org.jetbrains.uast.UUnaryExpression
 import org.jetbrains.uast.visitor.AbstractUastVisitor
 import java.util.*
 
@@ -32,29 +38,47 @@ class ClassStatsDetector : Detector(), Detector.UastScanner {
     val rules = listOf(
         TooManyLinesRule(),
         DoubleBangRule(),
-        NonFinalRule()
+        NonFinalRule(),
+        NullableRule()
     )
 
     override fun getApplicableUastTypes() = listOf(
         UClass::class.java
     )
 
-    override fun afterCheckFile(context: Context) {
-        super.afterCheckFile(context)
-    }
-
     override fun createUastHandler(context: JavaContext): UElementHandler? {
         return object : UElementHandler() {
 
 
             override fun visitClass(node: UClass) {
-
+                System.out.println("Visit class")
                 var nonFinalCounter = 0
+                var nullableTypeCounter = 0
                 node.accept(object : AbstractUastVisitor() {
 
+                    override fun visitUnaryExpression(node: UUnaryExpression): Boolean {
+                        System.out.println("****")
+                        System.out.println(node.asRenderString())
+                        return super.visitUnaryExpression(node)
+                    }
+
                     override fun visitDeclaration(node: UDeclaration): Boolean {
-                        if (!node.isFinal) {
-                            nonFinalCounter++
+                        System.out.println("Visit decleration: " + node.text + " " + node)
+
+                        // Nullable types
+                        node.sourcePsi?.children?.filterIsInstance<KtTypeReference>()?.map {
+                            if (it.typeElement is KtNullableType) {
+                                System.out.println("Yes: " + it.text)
+                                nullableTypeCounter++
+                            }
+                        }
+
+                        // Non final types
+                        if (node.sourcePsi is KtProperty) {
+                            if ((node.sourcePsi as KtProperty).valOrVarKeyword.text == "var") {
+                                nonFinalCounter++
+                            }
+
                         }
                         return super.visitDeclaration(node)
                     }
@@ -65,10 +89,9 @@ class ClassStatsDetector : Detector(), Detector.UastScanner {
 
                 val stats = ClassStats(
                     numberOfLines,
-                    0,
                     numberOfDoubleBangs,
-                    nonFinalCounter)
-
+                    nonFinalCounter,
+                    nullableTypeCounter)
 
                 rules.forEach {
                     if (!it.isValid(stats)) {
