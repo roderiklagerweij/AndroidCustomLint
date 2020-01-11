@@ -36,9 +36,9 @@ class ClassExistenceDetector : Detector(), Detector.UastScanner {
 
     override fun createUastHandler(context: JavaContext): UElementHandler? {
         return object : UElementHandler() {
-            override fun visitClass(declaration: UClass) {
-                declaration.qualifiedName?.let { qualifiedName ->
-                    declaration.name?.let { name ->
+            override fun visitClass(node: UClass) {
+                node.qualifiedName?.let { qualifiedName ->
+                    node.name?.let { name ->
 
                         rules.forEach { classExistenceRule ->
                             val packageName = qualifiedName.dropLast(name.length + 1)
@@ -46,8 +46,8 @@ class ClassExistenceDetector : Detector(), Detector.UastScanner {
                             classesShouldExist.forEach { classThatShouldExist ->
                                 if (context.evaluator.findClass(classThatShouldExist) == null) {
                                     context.report(
-                                        ISSUE_CLASS_EXISTENCE, declaration,
-                                        context.getNameLocation(declaration),
+                                        ISSUE_CLASS_EXISTENCE, node,
+                                        context.getNameLocation(node),
                                         classExistenceRule.getMessage()
                                     )
                                 }
