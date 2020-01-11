@@ -1,0 +1,49 @@
+package com.rl.lintrules
+
+import com.android.tools.lint.checks.infrastructure.LintDetectorTest.kotlin
+import com.android.tools.lint.checks.infrastructure.TestLintTask.lint
+import com.rl.lintrules.classexistence.ISSUE_CLASS_EXISTENCE
+import com.rl.lintrules.stats.ISSUE_CLASS_STATS
+import org.junit.Test
+
+class ClassStatsDetectorTest {
+
+    @Test
+    fun `when for a class has 5 or less lines then expect clean`() {
+        lint().files(kotlin("""
+            package test
+
+            class SomeClass {
+                fun method1() {
+
+                }
+            }
+        """).indented())
+            .issues(ISSUE_CLASS_STATS)
+            .allowMissingSdk(true)
+            .run()
+            .expectClean()
+    }
+
+
+    @Test
+    fun `when for a class has more then 5 lines then expect error`() {
+        lint().files(kotlin("""
+            package test
+
+            class SomeClass {
+                fun method1() {
+                
+                }
+                            
+                fun method2() {
+                
+                }
+            }
+        """).indented())
+            .issues(ISSUE_CLASS_STATS)
+            .allowMissingSdk(true)
+            .run()
+            .expectErrorCount(1)
+    }
+}
