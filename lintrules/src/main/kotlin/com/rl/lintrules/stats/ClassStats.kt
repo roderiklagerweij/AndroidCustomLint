@@ -1,7 +1,8 @@
 package com.rl.lintrules.stats
 
 data class ClassStats(
-    val numberOfLines : Int,
-    val numberOfNullables : Int,
-    val numberOfDoubleBangs : Int
+    var numberOfLines : Int,
+    var numberOfNullables : Int,
+    var numberOfDoubleBangs : Int,
+    var numberOfVars : Int
 )

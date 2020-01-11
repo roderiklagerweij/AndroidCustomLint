@@ -78,4 +78,24 @@ class ClassStatsDetectorTest {
             .expectErrorCount(1)
     }
 
+    @Test
+    fun `when too many variables are used expect error`() {
+        lint().files(kotlin("""
+            package test
+
+            class SomeClass {
+                fun method1() {
+                    var test1 = "1"
+                    var test2 = "2"
+                    var test3 = "3"
+                    var test4 = "4"
+                }
+            }
+        """).indented())
+            .issues(ISSUE_CLASS_STATS)
+            .allowMissingSdk(true)
+            .run()
+            .expectErrorCount(1)
+    }
+
 }

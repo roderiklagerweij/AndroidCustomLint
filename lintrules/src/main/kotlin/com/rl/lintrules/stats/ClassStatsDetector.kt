@@ -4,7 +4,10 @@ import com.android.tools.lint.client.api.UElementHandler
 import com.android.tools.lint.detector.api.*
 import com.rl.lintrules.stats.examples.DoubleBangRule
 import com.rl.lintrules.stats.examples.TooManyLinesRule
+import com.rl.lintrules.stats.examples.NonFinalRule
 import org.jetbrains.uast.UClass
+import org.jetbrains.uast.UDeclaration
+import org.jetbrains.uast.visitor.AbstractUastVisitor
 import java.util.*
 
 
@@ -28,26 +31,44 @@ class ClassStatsDetector : Detector(), Detector.UastScanner {
 
     val rules = listOf(
         TooManyLinesRule(),
-        DoubleBangRule()
+        DoubleBangRule(),
+        NonFinalRule()
     )
 
     override fun getApplicableUastTypes() = listOf(
         UClass::class.java
     )
 
+    override fun afterCheckFile(context: Context) {
+        super.afterCheckFile(context)
+    }
+
     override fun createUastHandler(context: JavaContext): UElementHandler? {
         return object : UElementHandler() {
+
+
             override fun visitClass(node: UClass) {
 
-                System.out.println(node.text)
+                var nonFinalCounter = 0
+                node.accept(object : AbstractUastVisitor() {
 
+                    override fun visitDeclaration(node: UDeclaration): Boolean {
+                        if (!node.isFinal) {
+                            nonFinalCounter++
+                        }
+                        return super.visitDeclaration(node)
+                    }
+
+                })
                 val numberOfLines = node.text.split("\n").size
                 val numberOfDoubleBangs = "!!".count { node.text.contains(it) }
 
                 val stats = ClassStats(
                     numberOfLines,
                     0,
-                    numberOfDoubleBangs)
+                    numberOfDoubleBangs,
+                    nonFinalCounter)
+
 
                 rules.forEach {
                     if (!it.isValid(stats)) {
@@ -58,6 +79,7 @@ class ClassStatsDetector : Detector(), Detector.UastScanner {
                     }
                 }
             }
+
         }
     }
 }
