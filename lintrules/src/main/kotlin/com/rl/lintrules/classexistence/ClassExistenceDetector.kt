@@ -3,6 +3,7 @@ package com.rl.lintrules.classexistence
 import com.android.tools.lint.client.api.UElementHandler
 import com.android.tools.lint.detector.api.*
 import com.rl.lintrules.classexistence.example.FragmentTestExistenceRule
+import com.rl.lintrules.classexistence.example.RobotExistenceRule
 import com.rl.lintrules.classexistence.example.ViewModelExistenceRule
 import org.jetbrains.uast.UClass
 import java.util.*
@@ -27,7 +28,8 @@ class ClassExistenceDetector : Detector(), Detector.UastScanner {
 
     val rules = listOf(
         ViewModelExistenceRule(),
-        FragmentTestExistenceRule()
+        FragmentTestExistenceRule(),
+        RobotExistenceRule()
     )
 
     override fun getApplicableUastTypes() = listOf(UClass::class.java)
