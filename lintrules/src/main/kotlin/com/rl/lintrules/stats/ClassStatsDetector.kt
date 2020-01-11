@@ -2,6 +2,7 @@ package com.rl.lintrules.stats
 
 import com.android.tools.lint.client.api.UElementHandler
 import com.android.tools.lint.detector.api.*
+import com.rl.lintrules.stats.examples.DoubleBangRule
 import com.rl.lintrules.stats.examples.TooManyLinesRule
 import org.jetbrains.uast.UClass
 import java.util.*
@@ -26,7 +27,8 @@ class ClassStatsDetector : Detector(), Detector.UastScanner {
     }
 
     val rules = listOf(
-        TooManyLinesRule()
+        TooManyLinesRule(),
+        DoubleBangRule()
     )
 
     override fun getApplicableUastTypes() = listOf(
@@ -40,8 +42,13 @@ class ClassStatsDetector : Detector(), Detector.UastScanner {
                 System.out.println(node.text)
 
                 val numberOfLines = node.text.split("\n").size
+                val numberOfDoubleBangs = "!!".count { node.text.contains(it) }
 
-                val stats = ClassStats(numberOfLines, 0)
+                val stats = ClassStats(
+                    numberOfLines,
+                    0,
+                    numberOfDoubleBangs)
+
                 rules.forEach {
                     if (!it.isValid(stats)) {
                         context.report(

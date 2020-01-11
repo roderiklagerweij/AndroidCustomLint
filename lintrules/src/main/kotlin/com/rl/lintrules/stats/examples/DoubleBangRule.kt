@@ -3,11 +3,11 @@ package com.rl.lintrules.stats.examples
 import com.rl.lintrules.stats.ClassStats
 import com.rl.lintrules.stats.ClassStatsRule
 
-class TooManyLinesRule : ClassStatsRule {
+class DoubleBangRule : ClassStatsRule {
     override fun isValid(classStats: ClassStats) =
-        classStats.numberOfLines <= 15
+        classStats.numberOfDoubleBangs == 0
 
 
-    override fun getMessage() = "Too many lines for class!"
+    override fun getMessage() = "Please don't use double bang operator"
 
 }

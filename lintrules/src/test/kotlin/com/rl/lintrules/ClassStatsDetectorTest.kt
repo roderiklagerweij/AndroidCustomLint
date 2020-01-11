@@ -9,7 +9,7 @@ import org.junit.Test
 class ClassStatsDetectorTest {
 
     @Test
-    fun `when for a class has 5 or less lines then expect clean`() {
+    fun `when for a class has 15 or less lines then expect clean`() {
         lint().files(kotlin("""
             package test
 
@@ -27,16 +27,29 @@ class ClassStatsDetectorTest {
 
 
     @Test
-    fun `when for a class has more then 5 lines then expect error`() {
+    fun `when for a class has more then 15 lines then expect error`() {
         lint().files(kotlin("""
             package test
 
             class SomeClass {
                 fun method1() {
                 
+                
+               
+                
+                
+                
+                
+                
                 }
                             
                 fun method2() {
+                
+                
+                
+                
+                
+                
                 
                 }
             }
@@ -46,4 +59,23 @@ class ClassStatsDetectorTest {
             .run()
             .expectErrorCount(1)
     }
+
+    @Test
+    fun `when for a class has !! then expect error`() {
+        lint().files(kotlin("""
+            package test
+
+            class SomeClass {
+                fun method1() {
+                    var test : String? = null
+                    System.out.println(test!!)
+                }
+            }
+        """).indented())
+            .issues(ISSUE_CLASS_STATS)
+            .allowMissingSdk(true)
+            .run()
+            .expectErrorCount(1)
+    }
+
 }
