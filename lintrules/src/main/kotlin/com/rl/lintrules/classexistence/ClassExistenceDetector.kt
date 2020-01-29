@@ -26,11 +26,7 @@ class ClassExistenceDetector : Detector(), Detector.UastScanner {
         const val MESSAGE = "Lint detector for the existence of classes"
     }
 
-    val rules = listOf(
-        ViewModelExistenceRule(),
-        FragmentTestExistenceRule(),
-        RobotExistenceRule()
-    )
+    val rules = RulesProvider.rulesList
 
     override fun getApplicableUastTypes() = listOf(UClass::class.java)
 
@@ -45,6 +41,7 @@ class ClassExistenceDetector : Detector(), Detector.UastScanner {
                             val classesShouldExist = classExistenceRule.classShouldExist(packageName, name)
                             classesShouldExist.forEach { classThatShouldExist ->
                                 if (context.evaluator.findClass(classThatShouldExist) == null) {
+                                    ISSUE_CLASS_EXISTENCE.defaultSeverity
                                     context.report(
                                         ISSUE_CLASS_EXISTENCE, node,
                                         context.getNameLocation(node),
