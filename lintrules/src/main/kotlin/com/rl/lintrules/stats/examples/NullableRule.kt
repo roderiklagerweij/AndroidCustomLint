@@ -5,7 +5,7 @@ import com.rl.lintrules.stats.ClassStatsRule
 
 class NullableRule : ClassStatsRule {
     override fun isValid(classStats: ClassStats) =
-        classStats.numberOfNullableDeclarations < 4
+        classStats.numberOfNullableDeclarations < 3
 
 
     override fun getMessage() = "Please don't use nullables!"
