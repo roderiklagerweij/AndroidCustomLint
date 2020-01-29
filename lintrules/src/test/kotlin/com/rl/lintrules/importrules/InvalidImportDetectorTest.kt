@@ -1,15 +1,17 @@
-package com.rl.lintrules
+package com.rl.lintrules.importrules
 
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest.gradle
 import com.android.tools.lint.checks.infrastructure.TestLintTask
-import com.rl.lintrules.importrules.ISSUE_IMPORT_DETECTOR
+import com.rl.lintrules.importrules.example.InvalidEspressoImportRule
 import org.junit.Test
 
-class IvalidImportDetectorTest {
+class InvalidImportDetectorTest {
 
     @Test
     fun `when a test class imports from an espresso package then expect a warning`() {
+        RulesProvider.rulesList = listOf(InvalidEspressoImportRule())
+
         TestLintTask.lint().files(LintDetectorTest.kotlin(
             "src/test/kotlin/somepackage/SomeFragmentTest.kt",
             """
@@ -39,6 +41,8 @@ class IvalidImportDetectorTest {
 
     @Test
     fun `when a test class does not import from an espresso package then expect clean`() {
+        RulesProvider.rulesList = listOf(InvalidEspressoImportRule())
+
         TestLintTask.lint().files(LintDetectorTest.kotlin(
             "src/test/kotlin/somepackage/SomeFragmentTest.kt",
             """

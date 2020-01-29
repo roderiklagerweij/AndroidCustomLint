@@ -2,7 +2,6 @@ package com.rl.lintrules.importrules
 
 import com.android.tools.lint.client.api.UElementHandler
 import com.android.tools.lint.detector.api.*
-import com.rl.lintrules.importrules.example.InvalidEspressoImportRule
 import org.jetbrains.uast.UImportStatement
 import java.util.*
 
@@ -25,7 +24,7 @@ class ImportDetector : Detector(), Detector.UastScanner {
         const val MESSAGE = "Lint detector for detecting invalid imports"
     }
 
-    val rules = listOf(InvalidEspressoImportRule())
+    val rules = RulesProvider.rulesList
 
     override fun getApplicableUastTypes() = listOf(UImportStatement::class.java)
 
