@@ -28,5 +28,4 @@ class DoubleBangRuleTest {
             .run()
             .expectErrorCount(1)
     }
-
 }

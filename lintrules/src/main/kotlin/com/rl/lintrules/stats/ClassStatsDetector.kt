@@ -39,7 +39,6 @@ class ClassStatsDetector : Detector(), Detector.UastScanner {
     override fun createUastHandler(context: JavaContext): UElementHandler? {
         return object : UElementHandler() {
 
-
             override fun visitClass(node: UClass) {
                 System.out.println("Visit class")
                 var nonFinalCounter = 0
