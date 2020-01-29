@@ -2,14 +2,9 @@ package com.rl.lintrules.stats
 
 import com.android.tools.lint.client.api.UElementHandler
 import com.android.tools.lint.detector.api.*
-import com.rl.lintrules.stats.examples.DoubleBangRule
-import com.rl.lintrules.stats.examples.NonFinalRule
-import com.rl.lintrules.stats.examples.NullableRule
-import com.rl.lintrules.stats.examples.TooManyLinesRule
 import org.jetbrains.kotlin.psi.KtNullableType
 import org.jetbrains.kotlin.psi.KtProperty
 import org.jetbrains.kotlin.psi.KtTypeReference
-import org.jetbrains.uast.UBinaryExpression
 import org.jetbrains.uast.UClass
 import org.jetbrains.uast.UDeclaration
 import org.jetbrains.uast.UUnaryExpression
@@ -35,12 +30,7 @@ class ClassStatsDetector : Detector(), Detector.UastScanner {
         const val MESSAGE = "Lint detector for class stats"
     }
 
-    val rules = listOf(
-        TooManyLinesRule(),
-        DoubleBangRule(),
-        NonFinalRule(),
-        NullableRule()
-    )
+    val rules = RulesProvider.rulesList
 
     override fun getApplicableUastTypes() = listOf(
         UClass::class.java

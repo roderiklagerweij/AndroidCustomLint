@@ -23,7 +23,7 @@ class IncorrectViewIdDetector : LayoutDetector() {
         const val MESSAGE = "Lint detector for properly naming view id's"
     }
 
-    val rules = listOf(AllCapsViewIdRule())
+    val rules = RulesProvider.rulesList
 
     override fun getApplicableAttributes(): Collection<String>? =
         listOf(SdkConstants.ATTR_ID)

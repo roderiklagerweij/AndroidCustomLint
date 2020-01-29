@@ -1,4 +1,4 @@
-package com.rl.lintrules
+package com.rl.lintrules.invalidwhen
 
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest
 import com.android.tools.lint.checks.infrastructure.TestLintTask

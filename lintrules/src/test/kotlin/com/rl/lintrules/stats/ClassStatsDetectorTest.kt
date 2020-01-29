@@ -1,9 +1,7 @@
-package com.rl.lintrules
+package com.rl.lintrules.stats
 
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest.kotlin
 import com.android.tools.lint.checks.infrastructure.TestLintTask.lint
-import com.rl.lintrules.classexistence.ISSUE_CLASS_EXISTENCE
-import com.rl.lintrules.stats.ISSUE_CLASS_STATS
 import org.junit.Test
 
 class ClassStatsDetectorTest {

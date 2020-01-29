@@ -1,4 +1,4 @@
-package com.rl.lintrules
+package com.rl.lintrules.viewid
 
 import com.android.tools.lint.checks.infrastructure.TestFiles
 import com.android.tools.lint.checks.infrastructure.TestLintTask.lint
