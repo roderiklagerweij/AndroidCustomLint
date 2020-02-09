@@ -6,7 +6,7 @@ import com.android.tools.lint.checks.infrastructure.TestLintTask
 import com.rl.lintrules.importrules.example.InvalidEspressoImportRule
 import org.junit.Test
 
-class InvalidImportDetectorTest {
+class InvalidEspressoImportRuleTest {
 
     @Test
     fun `when a test class imports from an espresso package then expect a warning`() {

@@ -4,7 +4,7 @@ import com.rl.lintrules.importrules.InvalidImportRule
 
 class InvalidUiImportRule : InvalidImportRule {
     override fun isAllowedImport(
-        visitingPackage: String?,
+        visitingPackage: String,
         visitingClassName: String,
         importedClass: String
     ) : Boolean =
@@ -12,7 +12,7 @@ class InvalidUiImportRule : InvalidImportRule {
 
     override fun getMessage() = "Classes in domain layer should not reference UI classes"
 
-    private fun isDomainPackage(packageName : String?) =
+    private fun isDomainPackage(packageName : String) =
         packageName.contains(".domain.") || packageName.endsWith("domain")
 
     private fun isUiPackage(packageName : String) =

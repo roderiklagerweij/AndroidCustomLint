@@ -2,13 +2,12 @@ package com.rl.lintrules.importrules
 
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest
 import com.android.tools.lint.checks.infrastructure.TestLintTask
-import com.rl.lintrules.importrules.example.InvalidEspressoImportRule
 import com.rl.lintrules.importrules.example.InvalidUiImportRule
 import org.junit.Test
 
 class InvalidUiImportRuleTest {
     @Test
-    fun `when a test class imports from an espresso package then expect a warning`() {
+    fun `when a domain class imports a class from ui package then expect a warning`() {
         RulesProvider.rulesList = listOf(InvalidUiImportRule())
 
         TestLintTask.lint().files(
