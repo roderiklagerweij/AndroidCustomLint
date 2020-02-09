@@ -5,12 +5,10 @@ import com.rl.lintrules.importrules.InvalidImportRule
 class InvalidEspressoImportRule :
     InvalidImportRule {
 
-    override fun isAllowedImport(className: String, isTestSource : Boolean, importedClass: String): Boolean {
-        if (isTestSource) {
-            if (className.endsWith("Test") || className.endsWith("Journey")) {
-                if (importedClass.startsWith("androidx.test.espresso")) {
-                    return false
-                }
+    override fun isAllowedImport(visitingPackage : String?, visitingClassName : String, importedClass: String): Boolean {
+        if (visitingClassName.endsWith("Test") || visitingClassName.endsWith("Journey")) {
+            if (importedClass.startsWith("androidx.test.espresso")) {
+                return false
             }
         }
         return true
