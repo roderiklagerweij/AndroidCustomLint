@@ -52,7 +52,6 @@ class ClassExistenceDetector : Detector(), Detector.UastScanner {
                         }
                     }
                 }
-
             }
         }
     }

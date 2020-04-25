@@ -20,6 +20,7 @@ class InvalidFeatureImportRule : InvalidImportRule {
         packageName.contains(".features.")
 
     private fun isDifferentFeaturePackage(packageName1: String, packageName2: String) =
+        // please do something more sophisticated here than I did
         packageName1.split(".features.")[1].split(".")[0] !=
                 packageName2.split(".features.")[1].split(".")[0]
 
