@@ -2,13 +2,13 @@ package com.rl.lintrules.importrules
 
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest
 import com.android.tools.lint.checks.infrastructure.TestLintTask
-import com.rl.lintrules.importrules.example.InvalidUiImportRule
+import com.rl.lintrules.importrules.example.InvalidDomainUIDependencyRule
 import org.junit.Test
 
-class InvalidUiImportRuleTest {
+class InvalidDomainUIDependencyRuleTest {
     @Test
     fun `when a domain class imports a class from ui package then expect a warning`() {
-        RulesProvider.rulesList = listOf(InvalidUiImportRule())
+        RulesProvider.rulesList = listOf(InvalidDomainUIDependencyRule())
 
         TestLintTask.lint().files(
             LintDetectorTest.kotlin(
