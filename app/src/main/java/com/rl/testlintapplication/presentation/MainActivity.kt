@@ -1,6 +1,7 @@
-package com.rl.testlintapplication
+package com.rl.testlintapplication.presentation
 
 import android.os.Bundle
+import com.rl.testlintapplication.R
 
 class MainActivity : BaseActivity() {
 

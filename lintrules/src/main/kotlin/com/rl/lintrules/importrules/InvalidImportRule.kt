@@ -9,6 +9,6 @@ interface InvalidImportRule {
         visitingClassName : String,
         importStatement: String) : Boolean
 
-    // Message to show developer in case of not allowed import
+    // Message to show in case of not allowed import
     fun getMessage(): String
 }

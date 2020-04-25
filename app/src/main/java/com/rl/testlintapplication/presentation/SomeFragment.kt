@@ -1,4 +1,4 @@
-package com.rl.testlintapplication
+package com.rl.testlintapplication.presentation
 
 import android.support.v4.app.Fragment
 
