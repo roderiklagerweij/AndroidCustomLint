@@ -2,6 +2,13 @@ package com.rl.lintrules.importrules
 
 
 interface InvalidImportRule {
-    fun isAllowedImport(visitingPackage : String, visitingClassName : String, importedClass: String) : Boolean
+
+    // Return true if allowed import, false if violation
+    fun isAllowedImport(
+        visitingPackage : String,
+        visitingClassName : String,
+        importStatement: String) : Boolean
+
+    // Message to show developer in case of not allowed import
     fun getMessage(): String
 }

@@ -1,14 +1,14 @@
 package com.rl.lintrules.importrules
 
-import com.rl.lintrules.importrules.example.InvalidDomainDataDependencyRule
-import com.rl.lintrules.importrules.example.InvalidDomainUIDependencyRule
+import com.rl.lintrules.importrules.example.InvalidDomainToDataDependencyRule
+import com.rl.lintrules.importrules.example.InvalidDomainToPresentationDependencyRule
 import com.rl.lintrules.importrules.example.InvalidEspressoImportRule
 import com.rl.lintrules.importrules.example.InvalidFeatureImportRule
 
 object RulesProvider {
     var rulesList : List<InvalidImportRule> = listOf(
-        InvalidDomainUIDependencyRule(),
-        InvalidDomainDataDependencyRule(),
+        InvalidDomainToPresentationDependencyRule(),
+        InvalidDomainToDataDependencyRule(),
         InvalidFeatureImportRule(),
         InvalidEspressoImportRule()
     )
