@@ -37,7 +37,7 @@ class ImportDetector : Detector(), Detector.UastScanner {
                         val visitingPackageName = import.getContainingUFile()?.packageName
                         val visitingClassName = context.file.nameWithoutExtension
                         val importedClass = import.asRenderString()
-                        visitingPackageName?.let { _ ->
+                        visitingPackageName?.let {
                             if (!rule.isAllowedImport(
                                     visitingPackageName,
                                     visitingClassName,
@@ -54,4 +54,8 @@ class ImportDetector : Detector(), Detector.UastScanner {
             }
         }
     }
+}
+
+fun test(node: UImportStatement) {
+
 }

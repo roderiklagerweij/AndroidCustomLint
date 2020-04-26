@@ -2,13 +2,13 @@ package com.rl.lintrules.importrules
 
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest
 import com.android.tools.lint.checks.infrastructure.TestLintTask
-import com.rl.lintrules.importrules.example.InvalidDomainToPresentationDependencyRule
+import com.rl.lintrules.importrules.example.InvalidDomainToDataDependencyRule
 import org.junit.Test
 
-class InvalidDomainToPresentationDependencyRuleTest {
+class InvalidDomainToDataDependencyRuleTest {
     @Test
-    fun `when a domain class imports a class from presentation package then expect a warning`() {
-        RulesProvider.rulesList = listOf(InvalidDomainToPresentationDependencyRule())
+    fun `when a domain class imports a class from data package then expect a warning`() {
+        RulesProvider.rulesList = listOf(InvalidDomainToDataDependencyRule())
 
         TestLintTask.lint().files(
             LintDetectorTest.kotlin(
@@ -16,7 +16,7 @@ class InvalidDomainToPresentationDependencyRuleTest {
                 """
             package somepackage.domain
 
-            import somepackage.presentation.SomeUiClass
+            import somepackage.data.SomeDataClass
 
             class SomeDomainClass {
 
