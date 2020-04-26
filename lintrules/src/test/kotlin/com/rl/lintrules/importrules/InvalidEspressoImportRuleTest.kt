@@ -36,7 +36,7 @@ class InvalidEspressoImportRuleTest {
             .issues(ISSUE_IMPORT_DETECTOR)
             .allowMissingSdk(true)
             .run()
-            .expectWarningCount(1)
+            .expectErrorCount(1)
     }
 
     @Test
@@ -95,7 +95,7 @@ class InvalidEspressoImportRuleTest {
             .issues(ISSUE_IMPORT_DETECTOR)
             .allowMissingSdk(true)
             .run()
-            .expectWarningCount(1)
+            .expectErrorCount(1)
     }
 
     @Test

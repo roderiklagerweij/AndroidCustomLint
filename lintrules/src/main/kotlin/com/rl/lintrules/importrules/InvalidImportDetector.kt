@@ -11,8 +11,8 @@ val ISSUE_IMPORT_DETECTOR = Issue.create(
     briefDescription = ImportDetector.MESSAGE,
     explanation = ImportDetector.MESSAGE,
     category = Category.CORRECTNESS,
-    priority = 5,
-    severity = Severity.WARNING,
+    priority = 9,
+    severity = Severity.ERROR,
     implementation = Implementation(
         ImportDetector::class.java,
         EnumSet.of(Scope.JAVA_FILE))
