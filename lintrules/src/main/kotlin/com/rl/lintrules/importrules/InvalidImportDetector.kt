@@ -15,8 +15,7 @@ val ISSUE_IMPORT_DETECTOR = Issue.create(
     severity = Severity.WARNING,
     implementation = Implementation(
         ImportDetector::class.java,
-        EnumSet.of(Scope.TEST_SOURCES, Scope.JAVA_FILE),
-        EnumSet.of(Scope.TEST_SOURCES, Scope.JAVA_FILE))
+        EnumSet.of(Scope.JAVA_FILE))
     )
 
 class ImportDetector : Detector(), Detector.UastScanner {
